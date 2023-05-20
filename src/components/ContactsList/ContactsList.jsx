@@ -1,15 +1,21 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { fetchContacts } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
 import { getFilterValue } from 'redux/selectors';
-
 
 import { Contact } from './Contact/Contact';
 
 import css from './ContactsList.module.css';
 
 export const ContactsList = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchContacts());
+    }, [dispatch]);
+
     const contacts = useSelector(getContacts);
     const filter = useSelector(getFilterValue);
 
@@ -24,7 +30,7 @@ export const ContactsList = () => {
                     <Contact
                         key={el.id}
                         name={el.name}
-                        number={el.number}
+                        number={el.phone}
                         id={el.id}
                     />)
                 )}

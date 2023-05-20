@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 
 import css from './Form.module.css';
 
@@ -24,7 +24,7 @@ export const Form = () => {
         return
         };
 
-        dispatch(addContact(name.value, number.value));
+        dispatch(addContact({name: name.value, phone: number.value}));
 
         name.value = '';
         number.value = '';
